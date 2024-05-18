@@ -56,23 +56,25 @@ package org.jiangxinjun.l2908;
 
 
 //leetcode submit region begin(Prohibit modification and deletion)
-class Solution {
+class Solution2 {
     public int minimumSum(int[] nums) {
-        // 按照逆序获取最小的
-        int[] reverseOrderMinNums = new int[nums.length-1];
-        reverseOrderMinNums[nums.length - 2] = nums[nums.length - 1];
-        for (int i = nums.length - 2; i > 0; i--) {
-            reverseOrderMinNums[i-1] = Math.min(reverseOrderMinNums[i],nums[i] );
-        }
-        int minimumSum = - 1;
-        int positiveSequenceMinimumNumber = nums[0];
+        // 动态规划
+        int[] minimumSumAry = new int[nums.length];
+        int[] minimumNumAry = new int[nums.length];
+        minimumSumAry[0] = nums[0];
+        minimumNumAry[0] = 1;
+        int minimumSum = -1;
         for (int i = 1; i < nums.length; i++) {
-            if (positiveSequenceMinimumNumber < nums[i] && reverseOrderMinNums[i-1] < nums[i]) {
-                minimumSum = minimumSum == -1
-                        ? (positiveSequenceMinimumNumber + nums[i] + reverseOrderMinNums[i-1])
-                        : Math.min(minimumSum, (positiveSequenceMinimumNumber + nums[i] + reverseOrderMinNums[i-1]));
+            for (int i1 = 0; i1 < i; i1++) {
+                if (nums[i] > nums[i1]) {
+                    if (minimumSumAry[i] == 0) {
+                        minimumSumAry[i] = minimumSumAry[i1] + nums[i];
+                        minimumNumAry[i] = minimumNumAry[i1]++;
+                        continue;
+                    }
+                    minimumSumAry[i] = Math.min(minimumSumAry[i1] + nums[i], minimumSumAry[i]);
+                }
             }
-            positiveSequenceMinimumNumber = Math.min(positiveSequenceMinimumNumber, nums[i]);
         }
         return minimumSum;
     }

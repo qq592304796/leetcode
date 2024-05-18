@@ -12,7 +12,7 @@ public class SolutionTest {
         Assert.assertEquals(9, result);
         int result2 = solution.minimumSum(new int[]{5,4,8,7,10,2});
         Assert.assertEquals(13, result2);
-        int result3 = solution.minimumSum(new int[]{5,4,8,7,10,2});
+        int result3 = solution.minimumSum(new int[]{6,5,4,3,4,5});
         Assert.assertEquals(-1, result3);
     }
 }
